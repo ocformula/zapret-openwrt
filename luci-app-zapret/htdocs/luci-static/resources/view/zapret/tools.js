@@ -333,7 +333,7 @@ return baseclass.extend({
                 if (spos > 0) {
                     ver = ver.substring(0, spos);
                 }
-                let match = ver.match(/^(.*)-r(\d+)$/);
+                let match = ver.match(/^(.*)-r?(\d+)$/);  // opkg on 23.05 has no "r"
                 if (match) {
                     ver = match[1];
                     rev = parseInt(match[2], 10);

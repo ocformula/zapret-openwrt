@@ -409,7 +409,10 @@ return view.extend({
         }
         let aux1 = E('em');
         let aux2 = E('em');
-        if (pkgdict[tools.appName] != pkgdict['luci-app-'+tools.appName]) {
+        // The release may differ or be missing: on OpenWrt 23.05 luci.mk
+        // does not add PKG_RELEASE to the version of luci-app-zapret.
+        let strip_rel = (ver) => String(ver).replace(/-r\d+$/, '');
+        if (strip_rel(pkgdict[tools.appName]) != strip_rel(pkgdict['luci-app-'+tools.appName])) {
             let errtxt = 'LuCI APP v' + pkgdict['luci-app-'+tools.appName] + ' [ incorrect version! ]';
             aux1 = E('div', { 'class': 'label-status error' }, errtxt);
             aux2 = E('div', { }, '&nbsp');
